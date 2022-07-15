@@ -12,9 +12,9 @@ const App = () => {
   const startService = async () => {
     ref.current = await esbuild.startService({
       worker: true,
-      wasmURL: '/esbuild.wasm'
+      wasmURL: '/esbuild.wasm',
     });
-  }
+  };
 
   useEffect(() => {
     startService();
@@ -30,11 +30,11 @@ const App = () => {
       entryPoints: ['index.js'],
       bundle: true,
       write: false,
-      plugins: [unpkgPathPlugin()],
+      plugins: [unpkgPathPlugin(input)],
       define: {
         'process.env.NODE_ENV': '"production"',
-        global: 'window'
-      }
+        global: 'window',
+      },
     });
 
     // console.log(result);
