@@ -39,44 +39,41 @@ export const unpkgPathPlugin = () => {
         // }
       });
 
-      build.onLoad(
-        { filter: /.*/ },
-        async (args: any): Promise<esbuild.OnLoadResult> => {
-          console.log('onLoad', args);
+      build.onLoad({ filter: /.*/ }, async (args: any) => {
+        console.log('onLoad', args);
 
-          if (args.path === 'index.js') {
-            return {
-              loader: 'jsx',
-              contents: `
+        if (args.path === 'index.js') {
+          return {
+            loader: 'jsx',
+            contents: `
               import react from 'react';
               console.log(react);
             `,
-            };
-          }
-
-          // Check to see if we have alreadey fetched this file
-          // and if it is in the cache
-          const cachedResult = await fileCache.getItem(args.path);
-
-          // if it is, return it immediatly
-          if (cachedResult) {
-            return cachedResult as esbuild.OnLoadResult;
-          }
-
-          const { data, request } = await axios.get(args.path);
-
-          const result = {
-            loader: 'jsx',
-            contents: data,
-            resolveDir: new URL('./', request.responseURL).pathname,
           };
-
-          // store response in cache
-          await fileCache.setItem(args.path, result);
-
-          return result as esbuild.OnLoadResult;
         }
-      );
+
+        /** check if we have lib in our cache */
+        const cachedResult = await fileCache.getItem<esbuild.OnLoadResult>(
+          args.path
+        );
+
+        if (cachedResult) {
+          return cachedResult;
+        }
+
+        /** if we don't have lib in out cache we fetch it and put in our cache */
+        const { data, request } = await axios.get(args.path);
+
+        const result: esbuild.OnLoadResult = {
+          loader: 'jsx',
+          contents: data,
+          resolveDir: new URL('./', request.responseURL).pathname,
+        };
+
+        await fileCache.setItem(args.path, result);
+
+        return result;
+      });
     },
   };
 };
