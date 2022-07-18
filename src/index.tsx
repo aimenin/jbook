@@ -9,7 +9,6 @@ const App = () => {
   const ref = useRef<any>();
   const iframe = useRef<any>();
   const [input, setInput] = useState('');
-  const [code, setCode] = useState('');
 
   const startService = async () => {
     ref.current = await esbuild.startService({
@@ -26,6 +25,8 @@ const App = () => {
     if (!ref.current) {
       return;
     }
+
+    iframe.current.srcdoc = html;
 
     // bundling
     const result = await ref.current.build({
@@ -71,8 +72,12 @@ const App = () => {
       <div>
         <button onClick={handleOnClick}>Submit</button>
       </div>
-      <pre>{code}</pre>
-      <iframe srcDoc={html} sandbox="allow-scripts" ref={iframe} />
+      <iframe
+        title="preview"
+        srcDoc={html}
+        sandbox="allow-scripts"
+        ref={iframe}
+      />
     </div>
   );
 };
