@@ -6,10 +6,11 @@ import 'bulmaswatch/superhero/bulmaswatch.min.css';
 import { unpkgPathPlugin } from './plugins/unpkg-path-plugin';
 import { fetchPlugin } from './plugins/fetch-plugin';
 import CodeEditor from './components/CodeEditor';
+import Preview from './components/Preview';
 
 const App = () => {
   const ref = useRef<any>();
-  const iframe = useRef<any>();
+  const [code, setCode] = useState('');
   const [input, setInput] = useState('');
 
   const startService = async () => {
@@ -28,8 +29,6 @@ const App = () => {
       return;
     }
 
-    iframe.current.srcdoc = html;
-
     // bundling
     const result = await ref.current.build({
       entryPoints: ['index.js'],
@@ -42,28 +41,8 @@ const App = () => {
       },
     });
 
-    iframe.current.contentWindow.postMessage(result.outputFiles[0].text, '*');
+    setCode(result.outputFiles[0].text);
   };
-
-  const html = `
-    <html>
-      <head></head>
-      <body>
-        <div id="root"></div>
-        <script>
-          window.addEventListener('message', (evt) => {
-            try {
-              eval(evt.data);
-            } catch (err) {
-              const root = document.querySelector('#root');
-              root.innerHTML = '<div style="color: red;"><h4>Runtime Error</h4>' + err + '</div>';
-              console.error(err);
-            }
-          }, false);
-        </script>
-      </body>
-    </html>
-  `;
 
   return (
     <div>
@@ -71,19 +50,10 @@ const App = () => {
         initialValue="const a = 1;"
         onChange={(value) => setInput(value)}
       />
-      <textarea
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-      ></textarea>
       <div>
         <button onClick={handleOnClick}>Submit</button>
       </div>
-      <iframe
-        title="preview"
-        srcDoc={html}
-        sandbox="allow-scripts"
-        ref={iframe}
-      />
+      <Preview code={code} />
     </div>
   );
 };
