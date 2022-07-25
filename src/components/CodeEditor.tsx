@@ -48,7 +48,7 @@ const CodeEditor: FC<CodeEditorProps> = ({ initialValue, onChange }) => {
         editorDidMount={onEditorDidMount}
         theme="dark"
         language="javascript"
-        height="500px"
+        height="100%"
         value={initialValue}
         options={{
           wordWrap: 'on',
