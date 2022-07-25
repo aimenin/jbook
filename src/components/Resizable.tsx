@@ -12,6 +12,7 @@ const Resizable: FC<ResizableProps> = ({ direction, children }) => {
 
   if (direction === 'horizontal') {
     resizableProps = {
+      className: 'resize-horizontal',
       height: Infinity,
       width: window.innerWidth * 0.75,
       resizeHandles: ['e'],
