@@ -6,14 +6,15 @@ import bundle from '../bundler';
 import Resizable from './Resizable';
 
 const CodeCell = () => {
-  const [code, setCode] = useState('');
-  const [input, setInput] = useState('');
+  const [code, setCode] = useState<string>('');
+  const [error, setError] = useState<string>('');
+  const [input, setInput] = useState<string>('');
 
   useEffect(() => {
     const timer = setTimeout(async () => {
       const output = await bundle(input);
-
-      setCode(output);
+      setCode(output.code);
+      setError(output.err);
     }, 1000);
 
     return () => {
@@ -30,7 +31,7 @@ const CodeCell = () => {
             onChange={(value) => setInput(value)}
           />
         </Resizable>
-        <Preview code={code} />
+        <Preview code={code} err={error} />
       </div>
     </Resizable>
   );
