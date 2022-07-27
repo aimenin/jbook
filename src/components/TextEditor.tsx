@@ -28,7 +28,7 @@ const TextEditor: FC = () => {
 
   if (editing) {
     return (
-      <div ref={ref}>
+      <div className="text-editor" ref={ref}>
         <MDEditor />
       </div>
     );
@@ -36,7 +36,7 @@ const TextEditor: FC = () => {
 
   return (
     <div onClick={() => setEditing(true)}>
-      <MDEditor.Markdown source={'# Header'} />
+      <MDEditor.Markdown className="text-editor" source={'# Header'} />
     </div>
   );
 };
