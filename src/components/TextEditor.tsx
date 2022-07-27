@@ -6,6 +6,7 @@ import './TextEditor.css';
 const TextEditor: FC = () => {
   const ref = useRef<HTMLDivElement | null>(null);
   const [editing, setEditing] = useState<boolean>(false);
+  const [value, setValue] = useState<string>('# Header');
 
   useEffect(() => {
     const listener = (event: MouseEvent) => {
@@ -29,14 +30,14 @@ const TextEditor: FC = () => {
   if (editing) {
     return (
       <div className="text-editor" ref={ref}>
-        <MDEditor />
+        <MDEditor value={value} onChange={(v) => setValue(v || '')} />
       </div>
     );
   }
 
   return (
     <div onClick={() => setEditing(true)}>
-      <MDEditor.Markdown className="text-editor" source={'# Header'} />
+      <MDEditor.Markdown className="text-editor" source={value} />
     </div>
   );
 };
