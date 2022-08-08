@@ -1,7 +1,12 @@
-import { FC } from "react";
+import { FC } from 'react';
+import { Cell } from '../state';
 
-const CellListItem: FC = () => {
-  return <div>CellListItem</div>
+interface CellListItemProps {
+  cell: Cell;
 }
+
+const CellListItem: FC<CellListItemProps> = ({ cell }) => {
+  return <div>{cell.id}</div>;
+};
 
 export default CellListItem;
