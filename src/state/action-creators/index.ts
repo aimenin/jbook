@@ -8,8 +8,6 @@ import {
   InsertCellAfterAction,
   MoveCellAction,
   UpdateCellAction,
-  BundleCompleteAction,
-  BundleStartAction,
 } from '../actions';
 import { CellType } from '../cell';
 import bundle from '../../bundler/index';
