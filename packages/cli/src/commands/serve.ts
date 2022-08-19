@@ -10,11 +10,15 @@ export const serveCommand = new Command()
     try {
       const dir = path.join(process.cwd(), path.dirname(filename));
       await serve(parseInt(options.port), path.basename(filename), dir);
+      console.log(
+        `Opened ${filename}. Navigate to http://localhost:${options.port} to edit a file`
+      );
     } catch (err) {
       let errorMessage = 'Failed to do something exceptional';
       if (err instanceof Error) {
         errorMessage = err.message;
       }
       console.log('Here is the problem ', errorMessage);
+      process.exit(1);
     }
   });

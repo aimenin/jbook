@@ -24,6 +24,7 @@ exports.serveCommand = new commander_1.Command()
     try {
         const dir = path_1.default.join(process.cwd(), path_1.default.dirname(filename));
         yield (0, local_api_1.serve)(parseInt(options.port), path_1.default.basename(filename), dir);
+        console.log(`Opened ${filename}. Navigate to http://localhost:${options.port} to edit a file`);
     }
     catch (err) {
         let errorMessage = 'Failed to do something exceptional';
@@ -31,5 +32,6 @@ exports.serveCommand = new commander_1.Command()
             errorMessage = err.message;
         }
         console.log('Here is the problem ', errorMessage);
+        process.exit(1);
     }
 }));
