@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
 import { store } from './state';
-import TextEditor from './components/TextEditor';
 import CellList from './components/CellList';
 
 const App = () => {
