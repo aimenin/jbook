@@ -4,16 +4,16 @@ import { ActionType } from '../action-types';
 import { saveCells } from '../action-creators';
 import { RootState } from '../reducers';
 
-export const persistMiddleware =
-  ({
-    dispatch,
-    getState,
-  }: {
-    dispatch: Dispatch<Action>;
-    getState: () => RootState;
-  }) =>
-  (next: (action: Action) => void) =>
-  (action: Action) => {
+export const persistMiddleware = ({
+  dispatch,
+  getState,
+}: {
+  dispatch: Dispatch<Action>;
+  getState: () => RootState;
+}) => {
+  let timer: any;
+
+  return (next: (action: Action) => void) => (action: Action) => {
     next(action);
 
     if (
@@ -24,6 +24,12 @@ export const persistMiddleware =
         ActionType.DELETE_CELL,
       ].includes(action.type)
     ) {
-      saveCells()(dispatch, getState);
+      if (timer) {
+        clearTimeout(timer);
+      }
+      timer = setTimeout(() => {
+        saveCells()(dispatch, getState);
+      }, 250);
     }
   };
+};
