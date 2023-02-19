@@ -80,21 +80,3 @@ export type Action =
   | FetchCellComplete
   | FetchCellError
   | SaveCellsErrorAction;
-
-// } catch (err) {
-//   if (err instanceof Error) {
-//     dispatch({
-//       type: ActionType.FETCH_CELLS_ERROR,
-//       payload: err.message,
-//     });
-//   }
-// }
-
-// } catch (err) {
-//   if (err instanceof Error) {
-//     dispatch({
-//       type: ActionType.SAVE_CELLS_ERROR,
-//       payload: err.message,
-//     });
-//   }
-// }
