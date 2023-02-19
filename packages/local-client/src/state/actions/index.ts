@@ -1,5 +1,5 @@
 import { ActionType } from '../action-types';
-import { CellType } from '../cell';
+import { CellType, Cell } from '../cell';
 
 export type Direction = 'up' | 'down';
 
@@ -50,10 +50,27 @@ export interface BundleCompleteAction {
   };
 }
 
+export interface FetchCellAction {
+  type: ActionType.BUNDLE_START;
+}
+
+export interface FetchCellComplete {
+  type: ActionType.FETCH_CELLS_COMPLETE;
+  payload: Cell[];
+}
+
+export interface FetchCellError {
+  type: ActionType.FETCH_CELLS_ERROR;
+  payload: string;
+}
+
 export type Action =
   | MoveCellAction
   | DeleteCellAction
   | InsertCellAfterAction
   | UpdateCellAction
   | BundleStartAction
-  | BundleCompleteAction;
+  | BundleCompleteAction
+  | FetchCellAction
+  | FetchCellComplete
+  | FetchCellError;
