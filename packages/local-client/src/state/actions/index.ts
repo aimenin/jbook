@@ -64,6 +64,11 @@ export interface FetchCellError {
   payload: string;
 }
 
+export interface SaveCellsErrorAction {
+  type: ActionType.SAVE_CELLS_ERROR;
+  payload: string;
+}
+
 export type Action =
   | MoveCellAction
   | DeleteCellAction
@@ -73,7 +78,8 @@ export type Action =
   | BundleCompleteAction
   | FetchCellAction
   | FetchCellComplete
-  | FetchCellError;
+  | FetchCellError
+  | SaveCellsErrorAction;
 
 // } catch (err) {
 //   if (err instanceof Error) {

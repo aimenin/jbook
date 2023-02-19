@@ -92,3 +92,7 @@ export const fetchCells = () => {
     }
   };
 };
+
+export const saveCells = () => {
+  return async (dispatch: Dispatch<Action>) => {};
+};
