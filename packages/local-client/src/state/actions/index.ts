@@ -51,7 +51,7 @@ export interface BundleCompleteAction {
 }
 
 export interface FetchCellAction {
-  type: ActionType.BUNDLE_START;
+  type: ActionType.FETCH_CELLS;
 }
 
 export interface FetchCellComplete {
@@ -74,3 +74,21 @@ export type Action =
   | FetchCellAction
   | FetchCellComplete
   | FetchCellError;
+
+// } catch (err) {
+//   if (err instanceof Error) {
+//     dispatch({
+//       type: ActionType.FETCH_CELLS_ERROR,
+//       payload: err.message,
+//     });
+//   }
+// }
+
+// } catch (err) {
+//   if (err instanceof Error) {
+//     dispatch({
+//       type: ActionType.SAVE_CELLS_ERROR,
+//       payload: err.message,
+//     });
+//   }
+// }
